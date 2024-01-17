@@ -10,7 +10,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'aws-ec2-key', variable: 'aws-ec2-key')]) {
                     sh 'ls -la'
-                    sh 'cp /$aws-ec2-key aws-ec2-key'
+                    sh 'cp /${aws-ec2-key} aws-ec2-key'
                     sh 'cat ansible_key'
                     sh 'ansible --version'
                     sh 'ls -la'
