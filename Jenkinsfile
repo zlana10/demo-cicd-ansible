@@ -16,7 +16,7 @@ pipeline {
                     sh 'docker --version'
                     sh 'echo "hungbeo003 | docker login -u hungltse04132@gmail.com --password-stdin"'
                     sh 'docker login -u "hungltse04132@gmail.com" -p "hungbeo003" docker.io'
-                    sh 'docker run -it ansible'
+                    sh 'docker run ansible'
                 }
             }
         }
