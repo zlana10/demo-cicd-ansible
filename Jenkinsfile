@@ -8,14 +8,14 @@ pipeline {
 
         stage('Run Ansible') {
             steps {
-                withCredentials([file(credentialsId: 'aws-ec2-key', variable: 'aws-ec2-key')]) {
+                withCredentials([file(credentialsId: 'ansible_key', variable: 'ansible_key')]) {
                     sh 'ls -la'
-                    sh 'cp /${aws-ec2-key} aws-ec2-key'
+                    sh 'cp /${ansible_key} ansible_key'
                     sh 'cat ansible_key'
                     sh 'ansible --version'
                     sh 'ls -la'
                     sh 'chmod 400 ansible_key '
-                    sh 'ansible-playbook -i hosts --private-key aws-ec2-key playbook.yml'
+                    sh 'ansible-playbook -i hosts --private-key ansible_key playbook.yml'
                 }
             }
         }
