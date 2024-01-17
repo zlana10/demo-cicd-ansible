@@ -5,7 +5,14 @@ pipeline {
         ANSIBLE_HOST_KEY_CHECKING = 'False'
     }
     stages {
-
+         stage('Build and Publish Ansible Image') {
+            steps {
+                script {
+                    sh 'docker image pull ansible:latest'
+                    sh 'docker run --name demo-cicd-ansible ansible:latest'
+                }
+            }
+        }
         stage('Run Ansible') {
             steps {
                 withCredentials([file(credentialsId: 'ansible_key', variable: 'ansible_key')]) {
