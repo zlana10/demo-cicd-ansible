@@ -1,17 +1,28 @@
 pipeline {
-
-    agent{
-        docker {
-            image 'ansible/ansible:latest'
-        }
+    agent any
     }
     environment {
         ANSIBLE_HOST_KEY_CHECKING = 'False'
     }
     stages {
+        stage('Build and Publish Ansible Image') {
+            steps {
+                script {
+                    // Set PATH explicitly
+                    def dockerHome = tool 'docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
 
-        stage('Deploy Mysql container') {
+                    // Verify Docker version
+                    sh 'docker --version'
 
+                    sh 'echo "hungbeo003 | docker login -u hungltse04132@gmail.com --password-stdin"'
+                    sh 'docker build -t hungltse04132/demo-cicd-ansible .'
+                    sh 'docker login -u "hungltse04132@gmail.com" -p "hungbeo003" docker.io'
+                    sh 'docker push hungltse04132/demo-cicd-ansible'
+                }
+            }
+        }
+        stage('Run Ansible') {
             steps {
                 withCredentials([file(credentialsId: 'aws-ec2-key', variable: 'aws-ec2-key')]) {
                     sh 'ls -la'
@@ -21,7 +32,7 @@ pipeline {
                     sh 'ls -la'
                     sh 'chmod 400 ansible_key '
                     sh 'ansible-playbook -i hosts --private-key aws-ec2-key playbook.yml'
-            }
+                }
             }
         }
 
