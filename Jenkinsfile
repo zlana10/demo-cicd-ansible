@@ -15,7 +15,7 @@ pipeline {
                     // Verify Docker version
                     sh 'docker --version'
 
-                    sh 'docker login -u "hungltse04132@gmail.com" -p "hungbeo003" docker.io'
+                    sh 'echo "hungbeo003 | docker login -u hungltse04132@gmail.com --password-stdin"'
                     sh 'docker image pull ansible:latest'
                     sh 'docker run --name demo-cicd-ansible ansible:latest'
                 }
