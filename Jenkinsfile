@@ -14,11 +14,9 @@ pipeline {
 
                     // Verify Docker version
                     sh 'docker --version'
-
                     sh 'echo "hungbeo003 | docker login -u hungltse04132@gmail.com --password-stdin"'
-                    sh 'docker build -t hungltse04132/demo-cicd-ansible .'
                     sh 'docker login -u "hungltse04132@gmail.com" -p "hungbeo003" docker.io'
-                    sh 'docker push hungltse04132/demo-cicd-ansible'
+                    sh 'docker run -it ansible'
                 }
             }
         }
@@ -26,7 +24,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'aws-ec2-key', variable: 'aws-ec2-key')]) {
                     sh 'ls -la'
-                    sh "cp /$aws-ec2-key aws-ec2-key"
+                    sh 'cp /$aws-ec2-key aws-ec2-key'
                     sh 'cat ansible_key'
                     sh 'ansible --version'
                     sh 'ls -la'
