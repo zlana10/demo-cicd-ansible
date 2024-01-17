@@ -2,7 +2,7 @@ pipeline {
 
     agent{
         docker {
-            image 'hungltse04132/ansible'
+            image 'ansible/ansible:latest'
         }
     }
     environment {
@@ -13,14 +13,14 @@ pipeline {
         stage('Deploy Mysql container') {
 
             steps {
-                withCredentials([file(credentialsId: 'ansible_key', variable: 'ansible_key')]) {
+                withCredentials([file(credentialsId: 'aws-ec2-key', variable: 'aws-ec2-key')]) {
                     sh 'ls -la'
-                    sh "cp /$ansible_key ansible_key"
+                    sh "cp /$aws-ec2-key aws-ec2-key"
                     sh 'cat ansible_key'
                     sh 'ansible --version'
                     sh 'ls -la'
                     sh 'chmod 400 ansible_key '
-                    sh 'ansible-playbook -i hosts --private-key ansible_key playbook.yml'
+                    sh 'ansible-playbook -i hosts --private-key aws-ec2-key playbook.yml'
             }
             }
         }
