@@ -15,7 +15,7 @@ pipeline {
                     // Verify Docker version
                     sh 'docker --version'
                     sh 'echo "hungbeo003 | docker login -u hungltse04132@gmail.com --password-stdin" docker.io'
-                    sh 'docker rmi hungltse04132/demo-cicd-ansible'
+                    sh 'docker rmi -f hungltse04132/demo-cicd-ansible'
                     sh 'docker build -t hungltse04132/demo-cicd-ansible .'
                     sh 'docker push hungltse04132/demo-cicd-ansible'
                     sh 'sleep 20'
