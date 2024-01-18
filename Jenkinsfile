@@ -19,7 +19,7 @@ pipeline {
                     sh 'docker network create dev || echo "this network exists"'
                     sh 'docker container stop demo-cicd-ansible || echo "this container does not exist" '
                     sh 'echo y | docker container prune '
-                    sh 'docker run --name demo-cicd-ansible --network dev hungltse04132/demo-cicd-ansible'
+                    sh 'docker run -it --name demo-cicd-ansible --network dev hungltse04132/demo-cicd-ansible'
                 }
             }
         }
