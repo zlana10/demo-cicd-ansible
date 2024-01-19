@@ -73,10 +73,10 @@
         state: started
         recreate: yes
         exposed_ports:
-          - 8080
+          - 8081
         detach: true
         published_ports:
-          - 8080:8080
+          - 8081:8081
         pull: true
         comparisons:
           image: strict
