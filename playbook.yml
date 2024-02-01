@@ -16,9 +16,7 @@
           - ca-certificates
           - curl
           - software-properties-common
-          - python3-pip
-          - virtualenv
-          - python3-setuptools
+          - apache2
         state: latest
         update_cache: true
     - name: Add Docker GPG apt Key
